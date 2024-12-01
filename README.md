@@ -1,9 +1,18 @@
 # Landing Page Project
 
-## Instructions
+This project is a **fork** of the original [Landing Page project](https://github.com/udacity/cd0428-landing-page.git) from **Udacity**.
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## Project Overview
 
-To get started, open `js/app.js` and start building out the app's functionality
+The original project provided a static version of the Landing Page using basic HTML and CSS for styling. The task is to transform this static page into an **interactive landing page** by adding JavaScript functionality. 
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+### What Need to be Done:
+- Modify the existing **HTML** and **CSS** files as needed.
+- Focus primarily on the **JavaScript** file to implement interactivity and dynamic functionality for the landing page.
+
+
+## Repository Information
+- **Original Repository**: [cd0428-landing-page](https://github.com/udacity/cd0428-landing-page.git) (Udacity’s repository)
+- **Forked Repository**: This repository is a fork of the original Udacity project and is being worked on by **Shehab Kharaz**.
+
+
