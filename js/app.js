@@ -85,13 +85,16 @@ function setActiveSection(){
 
 
 
-
-
-
 // Scroll to anchor ID using scrollTO event
-
-
-
+function scrollToSection(event){
+  event.preventDefault();
+  const targetId = event.target.getAttribute("href");
+  const targetSection = document.querySelector(targetId);
+  window.scrollTo({
+    top: targetSection.offsetTop,
+    behavior: "smooth"
+  })
+}
 
 
 
@@ -101,11 +104,6 @@ function setActiveSection(){
   Begin Events
 */
 
-// window.addEventListener("scroll",  hideNavbar)
-
-
-
-
 
 
 // Build menu 
@@ -114,7 +112,10 @@ document.addEventListener("DOMContentLoaded", buildNavbar)
 
 
 // Scroll to section on link click
-
+navbarList.addEventListener("click", (event) => {
+  if(event.target.tagName === "A")
+    scrollToSection(event);
+})
 
 
 
