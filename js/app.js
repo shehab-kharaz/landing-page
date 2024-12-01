@@ -26,8 +26,10 @@
 
 // Define Global Variables
 
-const navbarList = document.querySelector("#navbar__list")
-const sections = document.querySelectorAll("section")
+const navbarList = document.querySelector("#navbar__list");
+const header = document.querySelector(".page__header");
+const sections = document.querySelectorAll("section");
+let scrollingTimeOut;
 
 
 
@@ -61,6 +63,7 @@ function buildNavbar(){
 
     anchor.textContent = anchorTitle;
     anchor.href = `#${anchorTarget}`;
+    anchor.classList.add("menu__link")
 
     listItem.appendChild(anchor);
     navbarList.appendChild(listItem);
@@ -98,6 +101,19 @@ function scrollToSection(event){
 
 
 
+// show header
+function showHeader(){
+  header.style.top = "0";
+}
+
+
+// hide header
+function hideHeader(){
+  const headerHeight = header.getBoundingClientRect().height;
+  header.style.top = `-${headerHeight}px`;
+}
+
+
 
 /*
   End Main Functions
@@ -121,3 +137,35 @@ navbarList.addEventListener("click", (event) => {
 
 // Set sections as active
 window.addEventListener("scroll", setActiveSection)
+
+
+// Hide fixed header when user not scrolling 
+window.addEventListener("scroll", () => {
+  if(window.scrollY < 10){
+    showHeader();
+    clearTimeout(scrollingTimeOut);
+  }
+  else{
+    showHeader();
+    clearTimeout(scrollingTimeOut);
+    scrollingTimeOut = setTimeout(hideHeader, 1200)
+  }
+  
+})
+
+
+// Prevent header from disappearing when hovered over
+header.addEventListener("mouseenter", () => clearTimeout(scrollingTimeOut))
+
+// Reenable header hiding when not hovered over
+header.addEventListener("mouseleave", () => {
+  if(!(window.scrollY < 10))
+    scrollingTimeOut = setTimeout(hideHeader, 1200)
+})
+
+// Show the header when the mouse near the top of the document 
+document.addEventListener('mousemove', function(event) {
+  if (event.clientY <= 15) {
+      showHeader(); 
+  }
+});
