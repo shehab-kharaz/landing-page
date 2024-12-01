@@ -39,8 +39,6 @@ const sections = document.querySelectorAll("section")
 
 
 
-
-
 /*
   End Helper Functions
   Begin Main Functions 
@@ -52,39 +50,6 @@ const sections = document.querySelectorAll("section")
 
 
 // build the nav
-
-
-
-
-
-
-// Add class 'active' to section when near top of viewport
-
-
-
-
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-
-
-
-
-
-/*
-  End Main Functions
-  Begin Events
-*/
-
-
-
-
-
-
-
-// Build menu 
 function buildNavbar(){
   sections.forEach(section => {
    
@@ -105,8 +70,46 @@ function buildNavbar(){
 
 
 
+// Add class 'active' to section when near top of viewport
+function setActiveSection(){
+  sections.forEach(section => {
+    const boundingRect = section.getBoundingClientRect();
+    if(boundingRect.top < 0.25*window.innerHeight && boundingRect.bottom > 0.25*window.innerHeight){
+      section.classList.add("your-active-class")
+    }
+    else{
+      section.classList.remove("your-active-class")
+    }
+  })
+}
 
 
+
+
+
+
+// Scroll to anchor ID using scrollTO event
+
+
+
+
+
+
+
+/*
+  End Main Functions
+  Begin Events
+*/
+
+// window.addEventListener("scroll",  hideNavbar)
+
+
+
+
+
+
+// Build menu 
+document.addEventListener("DOMContentLoaded", buildNavbar)
 
 
 
@@ -115,7 +118,5 @@ function buildNavbar(){
 
 
 
-
-
-
 // Set sections as active
+window.addEventListener("scroll", setActiveSection)
