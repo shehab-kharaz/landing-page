@@ -26,6 +26,7 @@
 
 // Define Global Variables
 
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 const navbarList = document.querySelector("#navbar__list");
 const header = document.querySelector(".page__header");
 const sections = document.querySelectorAll("section");
@@ -115,6 +116,28 @@ function hideHeader(){
 
 
 
+
+// Toggle the visibility of the scroll to top button 
+function setScrollBtnVisibility(){
+  if(window.scrollY > 200)
+    scrollToTopBtn.style.display = "block";
+  else
+    scrollToTopBtn.style.display = "none";
+}
+
+
+// Scroll to the top when button is clicked
+function scrollToTop(){
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  })
+}
+
+
+
+
+
 /*
   End Main Functions
   Begin Events
@@ -169,3 +192,10 @@ document.addEventListener('mousemove', function(event) {
       showHeader(); 
   }
 });
+
+
+// Trigger the scroll to up button 
+window.addEventListener('scroll', setScrollBtnVisibility);
+
+// Return to the top of the document
+scrollToTopBtn.addEventListener("click", scrollToTop)
