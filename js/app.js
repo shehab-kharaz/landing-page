@@ -1,31 +1,3 @@
-/**
- * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
- * 
- * Dependencies: None
- * 
- * JS Version: ES2015/ES6
- * 
- * JS Standard: ESlint
- * 
-*/
-
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
-*/
-
-
-
-
-
-
-
-// Define Global Variables
-
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 const navbarList = document.querySelector("#navbar__list");
 const header = document.querySelector(".page__header");
@@ -35,23 +7,27 @@ let scrollingTimeOut;
 
 
 
-/*
-  End Global Variables
-  Start Helper Functions
-*/
+// helper function to call document loaded listeners 
+function callAllWhenDocumentReady(){
+  buildNavbar();
+  document.addEventListener("click", event => collapseSections(event));
+}
+
+
+// helper function to call scroll listeners 
+function callScrollListeners(){
+  setActiveSection();
+  setScrollBtnVisibility();
+  hideFixedHeader();
+}
 
 
 
-/*
-  End Helper Functions
-  Begin Main Functions 
-*/
 
 
 
 
-
-// build the nav
+// build the navbar
 function buildNavbar(){
   sections.forEach(section => {
    
@@ -72,14 +48,14 @@ function buildNavbar(){
 }
 
 
-
 // Add class 'active' to section when near top of viewport
 function setActiveSection(){
   sections.forEach(section => {
     const boundingRect = section.getBoundingClientRect();
     const navLink = document.querySelector(`a[href="#${section.id}"]`);
 
-    if (boundingRect.top < 0.25 * window.innerHeight && boundingRect.bottom > 0.25 * window.innerHeight) {
+    if (boundingRect.top < 0.25 * window.innerHeight 
+        && boundingRect.bottom > 0.25 * window.innerHeight) {
       section.classList.add("your-active-class");
       navLink.classList.add("menu__link__active");
     } else {
@@ -88,7 +64,6 @@ function setActiveSection(){
     }
   });
 }
-
 
 
 // Scroll to anchor ID using scrollTO event
@@ -103,7 +78,6 @@ function scrollToSection(event){
 }
 
 
-
 // show header
 function showHeader(){
   header.style.top = "0";
@@ -115,8 +89,6 @@ function hideHeader(){
   const headerHeight = header.getBoundingClientRect().height;
   header.style.top = `-${headerHeight}px`;
 }
-
-
 
 
 // Toggle the visibility of the scroll to top button 
@@ -137,34 +109,8 @@ function scrollToTop(){
 }
 
 
-
-
-/*
-  End Main Functions
-  Begin Events
-*/
-
-
-
-// Build menu 
-document.addEventListener("DOMContentLoaded", buildNavbar)
-
-
-
-// Scroll to section on link click
-navbarList.addEventListener("click", (event) => {
-  if(event.target.tagName === "A")
-    scrollToSection(event);
-})
-
-
-
-// Set sections as active
-window.addEventListener("scroll", setActiveSection)
-
-
 // Hide fixed header when user not scrolling 
-window.addEventListener("scroll", () => {
+function hideFixedHeader(){
   if(window.scrollY < 10){
     showHeader();
     clearTimeout(scrollingTimeOut);
@@ -174,51 +120,71 @@ window.addEventListener("scroll", () => {
     clearTimeout(scrollingTimeOut);
     scrollingTimeOut = setTimeout(hideHeader, 1200)
   }
-  
-})
+}
 
-
-// Prevent header from disappearing when hovered over
-header.addEventListener("mouseenter", () => clearTimeout(scrollingTimeOut))
 
 // Reenable header hiding when not hovered over
-header.addEventListener("mouseleave", () => {
+function reenableHeaderHiding(){
   if(!(window.scrollY < 10))
     scrollingTimeOut = setTimeout(hideHeader, 1200)
-})
+}
+
+
+function collapseSections(event){
+  if (event.target && event.target.classList.contains("toggle-section")){
+    const toggleButton = event.target;
+    const content = toggleButton.nextElementSibling;
+    const symbol = toggleButton.querySelector(".toggle_symbol");
+
+    content.classList.toggle("open");
+
+    if (content.classList.contains("open")) {
+      symbol.innerHTML = "&#43;";  
+    } else {
+      symbol.innerHTML = "&#8722;";  
+    }
+  }
+}
+
+
+
+
+
+
+
+// Events
+
+
+// Build menu 
+document.addEventListener("DOMContentLoaded", callAllWhenDocumentReady)
+
+
+// Set sections as active
+window.addEventListener("scroll", callScrollListeners)
+
+
+// Return to the top of the document
+scrollToTopBtn.addEventListener("click", scrollToTop)
+
+// Reenable header hiding when not hovered over
+header.addEventListener("mouseleave", reenableHeaderHiding)
+
+
+// Header stay visible when hovered
+header.addEventListener("mouseenter", () => clearTimeout(scrollingTimeOut))
+
 
 // Show the header when the mouse near the top of the document 
-document.addEventListener('mousemove', function(event) {
+document.addEventListener("mousemove", function(event) {
   if (event.clientY <= 15) {
       showHeader(); 
   }
 });
 
 
-// Trigger the scroll to up button 
-window.addEventListener('scroll', setScrollBtnVisibility);
-
-// Return to the top of the document
-scrollToTopBtn.addEventListener("click", scrollToTop)
-
-
-
-// Collapse logic 
-document.addEventListener('DOMContentLoaded', function () {
-
-  const toggleButtons = document.querySelectorAll('.toggle-section');
-  toggleButtons.forEach(function (toggleButton) {
-    toggleButton.addEventListener('click', function () {
-      const content = this.nextElementSibling; 
-      const symbol = this.querySelector('.toggle_symbol'); 
-      content.classList.toggle('open');
-      if (content.classList.contains('open')) {
-        symbol.innerHTML = '&#43;'; 
-      } else {
-        symbol.innerHTML = '&#8722;'; 
-      }
-    });
-  });
-
-});
+// Scroll to section on link click
+navbarList.addEventListener("click", (event) => {
+  if(event.target.tagName === "A")
+    scrollToSection(event);
+})
 
