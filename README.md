@@ -31,11 +31,17 @@ In addition to the base features of the static landing page, the following dynam
 4. **Dynamic Header Visibility**:
    - The header hides as the user scrolls down and reappears when the user scrolls up or reaches near the top of the page. This feature ensures that the header remains visible when needed but does not take up screen space when the user is viewing content further down the page.
 
-5. **Smooth Scrolling**:
+5. **Collapsible Sections**:
+   - Sections on the page can be dynamically expanded or collapsed by clicking on the toggle button associated with each section. When expanded, the symbol changes to a minus sign (−), and when collapsed, it changes to a plus sign (+). This feature allows users to interact with sections to view additional content without overwhelming the page layout.
+
+6. **Smooth Scrolling**:
    - All navigation actions, including the navbar links and scroll-to-top button, use smooth scrolling for a seamless experience. 
+
 
 ## Usage
   This project allows users to easily navigate through the sections of the landing page using the dynamically built navbar. When scrolling through the page, the active section is highlighted, and users can quickly return to the top of the page using the "scroll to top" button. The header will dynamically show or hide based on the user's scroll position, providing a clean user interface.
+
+
 
   ## License
 
