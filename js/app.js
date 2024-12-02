@@ -51,7 +51,6 @@ let scrollingTimeOut;
 
 
 
-
 // build the nav
 function buildNavbar(){
   sections.forEach(section => {
@@ -64,8 +63,8 @@ function buildNavbar(){
 
     anchor.textContent = anchorTitle;
     anchor.href = `#${anchorTarget}`;
-    anchor.classList.add("menu__link")
-
+    anchor.classList.add("menu__link");
+    
     listItem.appendChild(anchor);
     navbarList.appendChild(listItem);
 
@@ -78,13 +77,16 @@ function buildNavbar(){
 function setActiveSection(){
   sections.forEach(section => {
     const boundingRect = section.getBoundingClientRect();
-    if(boundingRect.top < 0.25*window.innerHeight && boundingRect.bottom > 0.25*window.innerHeight){
-      section.classList.add("your-active-class")
+    const navLink = document.querySelector(`a[href="#${section.id}"]`);
+
+    if (boundingRect.top < 0.25 * window.innerHeight && boundingRect.bottom > 0.25 * window.innerHeight) {
+      section.classList.add("your-active-class");
+      navLink.classList.add("menu__link__active");
+    } else {
+      section.classList.remove("your-active-class");
+      navLink.classList.remove("menu__link__active");
     }
-    else{
-      section.classList.remove("your-active-class")
-    }
-  })
+  });
 }
 
 
@@ -133,7 +135,6 @@ function scrollToTop(){
     behavior: "smooth"
   })
 }
-
 
 
 
@@ -199,3 +200,25 @@ window.addEventListener('scroll', setScrollBtnVisibility);
 
 // Return to the top of the document
 scrollToTopBtn.addEventListener("click", scrollToTop)
+
+
+
+// Collapse logic 
+document.addEventListener('DOMContentLoaded', function () {
+
+  const toggleButtons = document.querySelectorAll('.toggle-section');
+  toggleButtons.forEach(function (toggleButton) {
+    toggleButton.addEventListener('click', function () {
+      const content = this.nextElementSibling; 
+      const symbol = this.querySelector('.toggle_symbol'); 
+      content.classList.toggle('open');
+      if (content.classList.contains('open')) {
+        symbol.innerHTML = '&#43;'; 
+      } else {
+        symbol.innerHTML = '&#8722;'; 
+      }
+    });
+  });
+
+});
+

@@ -82,6 +82,7 @@ section {
     color: #000;
 }
 
+.navbar__menu .menu__link__active,
 .navbar__menu .menu__link:hover {
     background: #333;
     color: #fff;
@@ -127,13 +128,28 @@ section {
     min-width: 50px;
     min-height: 50px;
     text-align: center;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #ff8c00, #ff2a68);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+
+.collapsible-content {
+    max-height: 80vh; 
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, 0.5s ease-out;
+    text-align: justify;
+}
+
+.collapsible-content.open {
+    max-height: 0;
+}
+
+.toggle-section{
+    cursor: pointer;
+}
 
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
